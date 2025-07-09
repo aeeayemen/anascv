@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Anas | Wordpress Developer | Graphic Designer | Frontend Developer</title>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #5A4E7A, #7B6F9E);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+        
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .preloader-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .preloader-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        .preloader-icon i {
+            color: #5A4E7A;
+            font-size: 2rem;
+        }
+        
+        .preloader-text {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .preloader-text span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: normal;
+        }
+        
+        .preloader-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .preloader-progress-bar {
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            background: white;
+            border-radius: 2px;
+            animation: loadingBar 2s ease-in-out forwards;
+        }
+        
+        @keyframes loadingBar {
+            0% { width: 0%; }
+            70% { width: 85%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        
+        /* Root Variables - Light Theme */
+        :root {
+            --primary-purple: #5A4E7A;
+            --secondary-purple: #8C82A1;
+            --accent-pink: #7B6F9E;
+            --accent-blue: #6E6AAE;
+            --accent-green: #7A78A1;
+            --accent-orange: #7F5AF0;
+            --accent-red: #6C5B7B;
+            --text-dark: #1F2937;
+            --text-light: #9CA3AF;
+            --bg-light: #ffffff;
+            --bg-white: #FFFFFF;
+            --border-color: #D1D5DB;
+            --sidebar-width: 320px;
+            --topnav-height: 80px;
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 10px 30px rgba(90, 78, 122, 0.1);
+            --scroll-circle-border: #6E6AAE;
+            --timeline-bg: #F0EFF6;
+        }
+
+        /* Root Variables - Dark Theme */
+        .dark-theme {
+            --text-dark: #E5E7EB;
+            --text-light: #9CA3AF;
+            --bg-light: #111827;
+            --bg-white: #1F2937;
+            --border-color: #374151;
+            --card-bg: #1F2937;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --scroll-circle-border: #A78BFA;
+            --timeline-bg: #111827;
+        }
+
+        /* === Animations === */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(14deg); }
+            20% { transform: rotate(-8deg); }
+            30% { transform: rotate(14deg); }
+            40% { transform: rotate(-4deg); }
+            50% { transform: rotate(10deg); }
+            60% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .fade-in-delay-1 { animation-delay: 0.2s; }
+        .fade-in-delay-2 { animation-delay: 0.4s; }
+        .fade-in-delay-3 { animation-delay: 0.6s; }
+        .fade-in-delay-4 { animation-delay: 0.8s; }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .wave {
+            display: inline-block;
+            animation: wave 2s infinite;
+            transform-origin: 70% 70%;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Left Sidebar */
+        .left-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--bg-white);
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transform: translateX(-100%);
+            animation: slideInLeft 0.8s ease 0.8s forwards;
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            transition: all 0.5s ease;
+        }
+
+        .logo-icon:hover {
+            transform: rotate(15deg);
+        }
+
+        .logo-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .profile-image-container {
+            text-align: center;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 3px solid var(--primary-purple);
+            animation: fadeInUp 0.8s ease 1.2s forwards;
+            opacity: 0;
+        }
+
+        .profile-info h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.8s ease 1.3s forwards;
+            opacity: 0;
+        }
+
+        .profile-info p {
+            color: var(--text-light);
+            font-size: 1rem;
+            animation: fadeInUp 0.8s ease 1.4s forwards;
+            opacity: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            animation: fadeInUp 0.8s ease 1.5s forwards;
+            opacity: 0;
+        }
+
+        .social-icon.github {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .social-icon.linkedin {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: block;
+            animation: fadeInUp 0.8s ease 1.6s forwards;
+            opacity: 0;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.3);
+            color: white;
+        }
+
+        /* Top Navigation */
+        .top-navigation {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            height: var(--topnav-height);
+            background: var(--bg-white);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            opacity: 0;
+            animation: fadeInDown 0.8s ease 1.1s forwards;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 2rem;
+        }
+
+        .nav-items {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-item {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .nav-item.home-icon {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .nav-item.projects-icon {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .nav-item.about-icon {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .nav-item.resume-icon {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .nav-item.contact-icon {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--accent-pink);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-talk {
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-talk:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.3);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--topnav-height);
+            min-height: calc(100vh - var(--topnav-height));
+            opacity: 0;
+            animation: fadeIn 1s ease 1.3s forwards;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 4rem 2rem;
+            min-height: calc(100vh - var(--topnav-height));
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(245, 245, 248, 0.9) 0%, rgba(245, 245, 248, 0.7) 100%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%235A4E7A" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .greeting {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeInUp 0.8s ease 1.4s forwards;
+            opacity: 0;
+        }
+
+        .greeting i {
+            color: var(--primary-purple);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+            animation: fadeInUp 0.8s ease 1.5s forwards;
+            opacity: 0;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 1.6s forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--primary-purple));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            color: var(--text-dark);
+        }
+
+        .scroll-indicator {
+            position: relative;
+            animation: fadeInUp 0.8s ease 1.7s forwards;
+            opacity: 0;
+        }
+
+        .scroll-circle {
+            width: 150px;
+            height: 150px;
+            border: 2px solid var(--scroll-circle-border);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: rotate 20s linear infinite;
+        }
+
+        .scroll-text {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-purple);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .scroll-arrow {
+            color: var(--primary-purple);
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+        }
+
+        /* Sections */
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-purple), var(--accent-pink));
+            border-radius: 2px;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .project-card.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h5 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .project-category {
+            color: var(--primary-purple);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 4rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: all 0.5s ease;
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        
+        .service-item.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-item h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .service-subtitle {
+            color: var(--primary-purple);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Resume Section */
+        .resume-section {
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+        }
+
+        .resume-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .resume-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto 3rem;
+        }
+
+        .education-section h3,
+        .experience-section h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .education-section h3::before,
+        .experience-section h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--primary-purple), var(--accent-pink));
+            border-radius: 4px;
+        }
+
+        .timeline-item {
+            background: var(--timeline-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            transition: all 0.5s ease;
+            transform: translateX(-20px);
+            opacity: 0;
+        }
+        
+        .timeline-item.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .timeline-year {
+            color: var(--primary-purple);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .institution {
+            color: var(--accent-pink);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .tools-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tools-section h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .tool-item {
+            background: var(--timeline-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            text-align: center;
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        
+        .tool-item.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .tool-item:hover {
+            background: var(--primary-purple);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 4rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: all 0.5s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .testimonial-card.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author span {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form-container {
+            background: var(--timeline-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            transform: perspective(1000px) rotateX(5deg);
+            transition: all 0.5s ease;
+        }
+        
+        .contact-form-container:hover {
+            transform: perspective(1000px) rotateX(0);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: var(--accent-green);
+            color: white;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .contact-info {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .left-sidebar {
+                transform: translateX(-100%);
+                animation: none;
+            }
+            
+            .left-sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .top-navigation {
+                left: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-items {
+                gap: 0.5rem;
+            }
+            
+            .nav-item {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .resume-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Mobile menu toggle */
+        .mobile-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-purple);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+            cursor: pointer;
+            display: none;
+            animation: fadeIn 0.8s ease 1.1s forwards;
+            opacity: 0;
+        }
+
+        .mobile-toggle i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .mobile-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-logo">
+            <div class="preloader-icon">
+                <i class="fas fa-code"></i>
+            </div>
+            <div class="preloader-text">
+                Dev Anas
+                <span>Loading Portfolio...</span>
+            </div>
+        </div>
+        <div class="preloader-progress">
+            <div class="preloader-progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Toggle Button -->
+    <div class="mobile-toggle" id="mobile-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Left Sidebar -->
+    <div class="left-sidebar" id="left-sidebar">
+        <div class="profile-card">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="logo-text">
+                    <h3>Dev<br>Anas</h3>
+                </div>
+            </div>
+            
+            <div class="profile-image-container">
+                <img src="images/profile.jpg" alt="Anas Adel" class="profile-image">
+                <div class="profile-info">
+                    <h4>Anas Adel</h4>
+                    <p>Wordpress Developer</p>
+                </div>
+            </div>
+            
+            <div class="social-icons">
+                <a href="https://github.com/Anas-Esmail/" class="social-icon github"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/anasadelismail/" class="social-icon linkedin"><i class="fab fa-linkedin"></i></a>
+            </div>
+            
+            <div class="cta-section">
+                <a href="#contact" class="btn-cta">Let's Work Together!</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navigation -->
+    <div class="top-navigation">
+        <div class="nav-container">
+            <div class="nav-items">
+                <a href="#home" class="nav-item home-icon"><i class="fas fa-home"></i></a>
+                <a href="#projects" class="nav-item projects-icon"><i class="fas fa-th-large"></i></a>
+                <a href="#about" class="nav-item about-icon"><i class="fas fa-user"></i></a>
+                <a href="#resume" class="nav-item resume-icon"><i class="fas fa-file-alt"></i></a>
+                <a href="#contact" class="nav-item contact-icon"><i class="fas fa-envelope"></i></a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="#contact" class="btn-talk">Let's Talk <i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="greeting"><i class="fas fa-plus"></i> Let's meet!</p>
+                    <h1 class="hero-title">
+                        I'm Anas<br>
+                        <span class="gradient-text">WordPress Developer and <br>Designer</span>
+                    </h1>
+                    
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn-primary">
+                            <i class="fas fa-th-large"></i> My Works
+                        </a>
+                        <a href="https://drive.google.com/uc?export=download&id=1zutscth5EbiFzN6UVY9o6dFOheEAqank" class="btn-secondary">
+                            <i class="fas fa-download"></i> Download CV
+                        </a>
+                    </div>
+                </div>
+                <a href="#projects" style="list-style: none!important;  text-decoration: auto;"> 
+                <div class="scroll-indicator">
+                    <div class="scroll-circle">
+                        <div class="scroll-text" >SCROLL FOR MORE </div>
+                        <div class="scroll-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <div class="container-fluid">
+                <h2 class="section-title">Check out my featured projects</h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="images/anastheme.jpg" alt="Finance Service">
+                        </div>
+                        <div class="project-content">
+                            <h5>Anas Theme – My First Custom WordPress Theme</h5>
+                            <p class="project-category">WordPress Theme</p>
+                            <p class="project-description">
+                                Anas Theme is the first custom WordPress theme I developed from scratch, tailored for personal blogs and content-based websites. It features a clean, organized design focused on content visibility and an excellent reading experience.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="images/uploadimage.JPG" alt="Taxation Services">
+                        </div>
+                        <div class="project-content">
+                            <h5> My First WordPress Plugin – CSV Uploader via Shortcode</h5>
+                            <p class="project-category">WordPress Plugin</p>
+                            <p class="project-description">
+                                Today I completed my first WordPress plugin, a simple yet practical tool that allows users to upload a CSV file and store its data directly into the database using a custom shortcode.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="images/vedio.JPG" alt="Digital Marketing">
+                        </div>
+                        <div class="project-content">
+                            <h5>infographic video</h5>
+                            <p class="project-category">infographic explainer video</p>
+                            <p class="project-description">
+                                I designed and produced an infographic explainer video that introduces the core pillars of real estate marketing in a simple, visual, and engaging way.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="images/profile_project.jpg" alt="Craft Shop">
+                        </div>
+                        <div class="project-content">
+                            <h5>professional company profile </h5>
+                            <p class="project-category">Graphic Desgin</p>
+                            <p class="project-description">
+                                I created a complete and professional company profile for Smart Service, covering both content writing and visual layout.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title">Turning complex problems into simple design</h2>
+                
+                <div class="about-content">
+                    <p class="about-text">
+                        Hello! I’m Anas Adel, a passionate Freelance WordPress Developer and creative problem-solver with over 3 years of experience in building smart, responsive, and user-friendly digital solutions. I blend technical expertise with design thinking to deliver elegant websites, scalable backend systems, and intuitive user interfaces.
+                    </p>
+                    <p class="about-text">
+                        From crafting full-featured WordPress themes and plugins, to developing ERP systems using ERPNext, I’m committed to delivering high-quality results that meet business goals and enhance user experience.
+                        Let’s build something amazing together — whether it's a clean personal blog, a business website, or a custom web application.
+                    </p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-item">
+                        <h4>Frontend & Wordpress Developer </h4>
+                        <p class="service-subtitle">UI/UX Design Design to Code</p>
+                        <p>I work with HTML5/CSS3/React, Framer and WordPress.</p>
+                    </div>
+                    <div class="service-item">
+                        <h4>Figma UI/UX Design</h4>
+                        <p class="service-subtitle">Beautiful and Engaging Interfaces</p>
+                        <p>I use Figma, Adobe Photoshop, and Illustrator to design modern, user-friendly interfaces for websites and mobile apps.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="resume-section">
+            <div class="container">
+                <h2 class="section-title">Education and Practical Experience</h2>
+
+                <p class="resume-intro">
+                    I'm a passionate Web Developer with over 3 years of experience in front-end and WordPress development, ERP systems, and team collaboration. I've worked with companies across various sectors and completed freelance projects that strengthened my technical and communication skills. My journey blends formal education with real-world problem-solving.
+                </p>
+
+                <div class="resume-content">
+                    <div class="education-section">
+                        <h3>Education</h3>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2017 - 2021</div>
+                            <h5>Bachelor of Technology – Computer Science</h5>
+                            <p class="institution">Sana'a University</p>
+                            <p>Studied core programming, problem-solving, and communication skills. Graduated with a strong foundation in software and systems development.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">2022</div>
+                            <h5>Diploma in ERP Development</h5>
+                            <p class="institution">Rowad Academy – Supported by GIZ</p>
+                            <p>Completed intensive training in ERPNext development, databases, and business process automation.</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-section">
+                        <h3>Work Experience</h3>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">Jul 2025 – Present</div>
+                            <h5>WordPress Developer (Intern)</h5>
+                            <p class="institution">GAOTek Inc. – Remote</p>
+                            <p>Working in the WebDev Interns Squad to develop WordPress websites and features using WooCommerce and AJAX. Attending team meetings and completing approved tasks.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">Jan 2023 – Present</div>
+                            <h5>Frontend Developer</h5>
+                            <p class="institution">Opensoft Company</p>
+                            <p>Building responsive web applications and collaborating with teams to deliver high-quality solutions under tight deadlines using Git and Agile methodologies.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">Jan 2022 – Jan 2023</div>
+                            <h5>Freelance Web & WordPress Developer</h5>
+                            <p class="institution">Self-employed</p>
+                            <p>Designed and developed custom WordPress websites and graphics. Handled client projects involving design, development, and timeline management.</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-year">Jan 2021 – Jan 2022</div>
+                            <h5>ERPNext Developer</h5>
+                            <p class="institution">ProSite Yemen</p>
+                            <p>Developed ERPNext modules and collaborated in team-based projects to solve complex business problems with technical solutions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tools-section">
+                    <h3>My Favorite Tools</h3>
+                    <div class="tools-grid">
+                        <span class="tool-item">WordPress</span>
+                        <span class="tool-item">Frappe / ERPNext</span>
+                        <span class="tool-item">HTML5</span>
+                        <span class="tool-item">CSS3</span>
+                        <span class="tool-item">JavaScript</span>
+                        <span class="tool-item">Bootstrap</span>
+                        <span class="tool-item">React</span>
+                        <span class="tool-item">Figma</span>
+                        <span class="tool-item">Photoshop</span>
+                        <span class="tool-item">Illustrator</span>
+                        <span class="tool-item">GitHub</span>
+                        <span class="tool-item">VS Code</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <h2 class="section-title">Clients say about me</h2>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>"Anas helped us design a clean, modern interface for our website. His creativity and attention to user experience really stood out. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <strong>Fares Al-Hattami</strong>
+                            <span>Frontend Developer</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p>"Working with Anas on our company website was smooth and professional. He delivered exactly what we needed — responsive, fast, and visually impressive."</p>
+                        <div class="testimonial-author">
+                            <strong>Abdulrahman Babiker</strong>
+                            <span>Operations Manager, Backend Developer</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p>"Anas developed our custom WordPress theme from scratch. The result was a well-coded, SEO-friendly site that our clients love. We’ll definitely work with him again."</p>
+                        <div class="testimonial-author">
+                            <strong>Yousef Al-Mohammadi</strong>
+                            <span>Analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <h2 class="section-title">Let's make something awesome together!</h2>
+        
+        <div class="contact-content">
+            <div class="contact-form-container">
+                <form class="contact-form" method="POST" action="https://formsubmit.co/anasadelismail2023@gmail.com">
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <input type="text" name="subject" placeholder="Subject" required>
+                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="http://127.0.0.1:5501/index.html">
+                
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+                
+                
+                <div class="success-message" id="success-message" style="display:none;">
+                    <h4>Done!</h4>
+                    <p>Thanks for your message. I'll get back as soon as possible.</p>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <p>Want to know more about me, tell me about your project or just to say hello? Drop me a line and I'll get back as soon as possible.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Preloader functionality
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const preloader = document.getElementById('preloader');
+                preloader.classList.add('hidden');
+            }, 2000);
+        });
+
+        // Theme Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const leftSidebar = document.getElementById('left-sidebar');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-theme');
+                
+                if (document.body.classList.contains('dark-theme')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            });
+            
+            // Mobile sidebar toggle
+            mobileToggle.addEventListener('click', function() {
+                leftSidebar.classList.toggle('active');
+            });
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                const isClickInsideSidebar = leftSidebar.contains(event.target);
+                const isClickInsideMobileToggle = mobileToggle.contains(event.target);
+                
+                if (!isClickInsideSidebar && !isClickInsideMobileToggle && window.innerWidth <= 1200) {
+                    leftSidebar.classList.remove('active');
+                }
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close sidebar on mobile after clicking a link
+                        if (window.innerWidth <= 1200) {
+                            leftSidebar.classList.remove('active');
+                        }
+                    }
+                });
+            });
+            
+            // Form submission handling
+            // const contactForm = document.querySelector('.contact-form');
+            // const successMessage = document.getElementById('success-message');
+
+            // contactForm.addEventListener('submit', function(e) {
+            //     e.preventDefault();
+
+            //     const formData = new FormData(contactForm);
+
+            //     fetch('https://formsubmit.co/anasadelismail2023@gmail.com', {
+            //         method: 'POST',
+            //         body: formData
+            //     })
+            //     .then(response => {
+            //         if (response.ok) {
+            //             contactForm.reset();
+            //             successMessage.classList.add('show');
+
+            //             setTimeout(() => {
+            //                 successMessage.classList.remove('show');
+            //             }, 5000);
+            //         } else {
+            //             alert('حدث خطأ أثناء الإرسال');
+            //         }
+            //     });
+            // });
+
+            // const contactForm = document.getElementById('contact-form');
+            // const successMessage = document.getElementById('success-message');
+
+            // contactForm.addEventListener('submit', function(e) {
+            //     e.preventDefault(); // منع الإرسال التلقائي
+
+            //     const formData = new FormData(contactForm);
+
+            //     fetch('https://formsubmit.co/anasadelismail2023@email.com', {
+            //         method: 'POST',
+            //         body: formData
+            //     })
+            //     .then(response => {
+            //         if (response.ok) {
+            //             contactForm.reset();
+            //             successMessage.style.display = 'block';
+            //             setTimeout(() => {
+            //                 successMessage.style.display = 'none';
+            //             }, 5000);
+            //         } else {
+            //             alert('حدث خطأ، حاول مرة أخرى.');
+            //         }
+            //     })
+            //     .catch(error => {
+            //         alert('تعذر الإرسال. تأكد من الاتصال.');
+            //     });
+            // });
+
+            
+            // Scroll animations for elements
+            function animateOnScroll() {
+                const projectCards = document.querySelectorAll('.project-card');
+                const serviceItems = document.querySelectorAll('.service-item');
+                const timelineItems = document.querySelectorAll('.timeline-item');
+                const testimonialCards = document.querySelectorAll('.testimonial-card');
+                const toolItems = document.querySelectorAll('.tool-item');
+                
+                projectCards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.9) {
+                        setTimeout(() => {
+                            card.classList.add('animate');
+                        }, index * 200);
+                    }
+                });
+                
+                serviceItems.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.9) {
+                        setTimeout(() => {
+                            item.classList.add('animate');
+                        }, index * 200);
+                    }
+                });
+                
+                timelineItems.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.9) {
+                        setTimeout(() => {
+                            item.classList.add('animate');
+                        }, index * 150);
+                    }
+                });
+                
+                testimonialCards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.9) {
+                        setTimeout(() => {
+                            card.classList.add('animate');
+                        }, index * 200);
+                    }
+                });
+                
+                toolItems.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.9) {
+                        setTimeout(() => {
+                            item.classList.add('animate');
+                        }, index * 50);
+                    }
+                });
+            }
+            
+            // Initial check and event listener
+            animateOnScroll();
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>
