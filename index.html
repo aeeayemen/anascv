@@ -1171,6 +1171,56 @@
                 display: flex;
             }
         }
+               /* تعديلات جديدة لحل المشكلة */
+        @media (max-width: 1200px) {
+            .top-navigation {
+                z-index: 1001; /* زيادة z-index ليكون أعلى من الزر الجانبي */
+            }
+            
+            .mobile-toggle {
+                z-index: 1000; /* تخفيض z-index للزر الجانبي */
+            }
+            
+            .left-sidebar {
+                z-index: 999; /* تخفيض z-index للسايد بار */
+            }
+            
+            /* تعديل موضع زر السايد بار */
+            .mobile-toggle {
+                top: 25px;
+                left: 25px;
+            }
+            
+            /* تعديل أزرار التنقل */
+            .nav-container {
+                padding: 0 10px;
+            }
+            
+            .nav-item {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .nav-container {
+                justify-content: flex-end;
+            }
+            
+            .nav-items {
+                gap: 5px;
+            }
+            
+            .nav-actions {
+                gap: 8px;
+            }
+        }
     </style>
 </head>
 <body>
